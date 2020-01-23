@@ -1,10 +1,10 @@
 import pycuda.autoinit
 import pycuda.driver as drv
-import numpy
 from pycuda.compiler import SourceModule
+import numpy
 
 mod = SourceModule(r"""
-void __global__ add(const double *x, const double *y, double *z, const int N)
+void __global__ add(const float *x, const float *y, float *z)
 {
     const int n = blockDim.x * blockIdx.x + threadIdx.x;
     z[n] = x[n] + y[n];
@@ -17,9 +17,9 @@ a = 1.23
 b = 2.34
 c = 3.57
 N = 100000000
-h_x = numpy.full((N,1), a)
-h_y = numpy.full((N,1), b)
-h_z = numpy.zeros_like(h_x)
+h_x = numpy.full((N,1), a, dtype=numpy.float32)
+h_y = numpy.full((N,1), b, dtype=numpy.float32)
+h_z = numpy.zeros_like(h_x, dtype=numpy.float32)
 d_x = drv.mem_alloc(h_x.nbytes)
 d_y = drv.mem_alloc(h_y.nbytes)
 d_z = drv.mem_alloc(h_z.nbytes)

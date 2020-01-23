@@ -34,14 +34,16 @@ class MolecularDynamics(object):
             material.lattice[0,0]*0.5, material.lattice[1,1]*0.5, material.lattice[2,2]*0.5]
         lj = [cutoff*cutoff, e24s6, e48s12, e4s6, e4s12]
 
-        self.gpu = GPU.kernel(atomic_number, MN, double=False)
+        self.gpu = GPU.Kernel(
+            atomic_number=atomic_number, 
+            neighbor_number=MN, 
+            double=False)
         self.gpu.upload(
             material.atomic_mass, 
             material.coordinate, 
             velocity, 
             lj, 
             box)
-
         self.gpu.find_neighbor(cutoff)
 
     def equilibration(self, Ne):

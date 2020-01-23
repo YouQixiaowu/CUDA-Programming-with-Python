@@ -1,4 +1,5 @@
-import material, md, time
+import time
+import material, md
 
 unitcell = {
     'lattice' : [
@@ -29,4 +30,3 @@ test = md.MolecularDynamics(Ar, input_infor)
 start = time.time()
 test.equilibration(10000)
 test.production(10000, 100)
-print(time.time()-start)

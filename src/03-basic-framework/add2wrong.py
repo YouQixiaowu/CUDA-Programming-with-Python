@@ -4,7 +4,7 @@ import numpy
 from pycuda.compiler import SourceModule
 
 mod = SourceModule(r"""
-void __global__ add(const double *x, const double *y, double *z, const int N)
+void __global__ add(const double *x, const double *y, double *z)
 {
     const int n = blockDim.x * blockIdx.x + threadIdx.x;
     z[n] = x[n] + y[n];
