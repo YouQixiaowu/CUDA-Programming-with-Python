@@ -16,17 +16,15 @@ def arithmetic(x, x0):
 s2ms = 1000
 NUM_REPEATS = 10
 x0 = 100
-N = 10000
-N_execute = 10
 t_sum = 0
 t2_sum = 0
 for repeat in range(NUM_REPEATS+1):
-    x = numpy.zeros((N_execute,1), dtype=real_py)
+    x = numpy.zeros((NUM_REPEATS,1), dtype=real_py)
     start = time.time()
 
     x = list(map(partial(arithmetic, x0=x0), x))
 
-    elapsed_time = (time.time()-start)*s2ms*(N/N_execute)
+    elapsed_time = (time.time()-start)*s2ms
     print("Time = {:.6f} ms.".format(elapsed_time))
     if repeat > 0:
         t_sum += elapsed_time
