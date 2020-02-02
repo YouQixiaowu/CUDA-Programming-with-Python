@@ -1,0 +1,1 @@
+目前pycuda的managed memory是实验性质的，并不能保证其稳定性，代码将在日后再补充。
