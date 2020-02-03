@@ -46,6 +46,7 @@ def timing():
     h_x = numpy.full((N,1), 1.23, dtype=real_py)
     d_x = drv.mem_alloc(h_x.nbytes)
     drv.memcpy_htod(d_x, h_x)
+    size_real = numpy.dtype(real_py).itemsize
     t_sum = 0
     t2_sum = 0
     for repeat in range(NUM_REPEATS+1):
@@ -61,10 +62,7 @@ def timing():
             numpy.int32(N), 
             grid=(grid_size, 1), 
             block=(128,1,1), 
-            shared=numpy.zeros(
-                (1,1),
-                dtype=real_py
-                ).nbytes*BLOCK_SIZE
+            shared=size_real*BLOCK_SIZE
             )
 
         drv.memcpy_dtoh(h_y, d_y)

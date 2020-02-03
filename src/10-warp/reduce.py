@@ -1,6 +1,7 @@
 import pycuda.autoinit
 import pycuda.driver as drv
-import numpy, math, sys
+import numpy as np
+import math, sys
 from pycuda.compiler import DynamicSourceModule
 
 if len(sys.argv)>2 and sys.argv[1]=='-double':
@@ -117,16 +118,15 @@ reduce_syncwarp = mod.get_function("reduce_syncwarp")
 reduce_shfl = mod.get_function("reduce_shfl")
 reduce_cp = mod.get_function("reduce_cp")
 
-
-
 def timing(method):
     NUM_REPEATS = 10
     N = 100000000
     BLOCK_SIZE = 128
     grid_size = (N-1)//128+1
-    h_x = numpy.full((N,1), 1.23, dtype=real_py)
+    h_x = np.full((N,1), 1.23, dtype=real_py)
     d_x = drv.mem_alloc(h_x.nbytes)
     drv.memcpy_htod(d_x, h_x)
+    size_real = np.dtype(real_py).itemsize
     t_sum = 0
     t2_sum = 0
     for repeat in range(NUM_REPEATS+1):
@@ -134,15 +134,27 @@ def timing(method):
         stop = drv.Event()
         start.record() 
 
-        h_y = numpy.zeros((1,1), dtype=real_py)
+        h_y = np.zeros((1,1), dtype=real_py)
         d_y = drv.mem_alloc(h_y.nbytes)
         drv.memcpy_htod(d_y, h_y)
         if method==0:
-            reduce_syncwarp(d_x, d_y, numpy.int32(N), grid=(grid_size, 1), block=(128,1,1), shared=numpy.zeros((1,1),dtype=real_py).nbytes*BLOCK_SIZE)
+            reduce_syncwarp(d_x, d_y, np.int32(N), 
+            grid=(grid_size, 1), 
+            block=(128,1,1), 
+            shared=size_real*BLOCK_SIZE
+            )
         elif method==1:
-            reduce_shfl(d_x, d_y, numpy.int32(N), grid=((N-1)//128+1, 1), block=(128,1,1), shared=numpy.zeros((1,1),dtype=real_py).nbytes*BLOCK_SIZE)
+            reduce_shfl(d_x, d_y, np.int32(N), 
+            grid=((N-1)//128+1, 1), 
+            block=(128,1,1), 
+            shared=size_real*BLOCK_SIZE
+            )
         elif method==2:
-            reduce_cp(d_x, d_y, numpy.int32(N), grid=((N-1)//128+1, 1), block=(128,1,1), shared=numpy.zeros((1,1),dtype=real_py).nbytes*BLOCK_SIZE)
+            reduce_cp(d_x, d_y, np.int32(N), 
+            grid=((N-1)//128+1, 1), 
+            block=(128,1,1), 
+            shared=size_real*BLOCK_SIZE
+            )
         else:
             print("Error: wrong method")
             break

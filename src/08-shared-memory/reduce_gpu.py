@@ -96,6 +96,7 @@ def timing(method):
     d_x = drv.mem_alloc(h_x.nbytes)
     h_y = numpy.zeros((grid_size,1), dtype=real_py)
     d_y = drv.mem_alloc(h_y.nbytes)
+    size_real = numpy.dtype(real_py).itemsize
     t_sum = 0
     t2_sum = 0
     for repeat in range(NUM_REPEATS+1):
@@ -105,11 +106,21 @@ def timing(method):
         start.record() 
         
         if method==0:
-            reduce_global(d_x, d_y, grid=(grid_size, 1), block=(128,1,1))
+            reduce_global(d_x, d_y, 
+                grid=(grid_size, 1), 
+                block=(128,1,1)
+                )
         elif method==1:
-            reduce_shared(d_x, d_y, numpy.int32(N), grid=((N-1)//128+1, 1), block=(128,1,1))
+            reduce_shared(d_x, d_y, numpy.int32(N), 
+                grid=((N-1)//128+1, 1), 
+                block=(128,1,1)
+                )
         elif method==2:
-            reduce_dynamic(d_x, d_y, numpy.int32(N), grid=((N-1)//128+1, 1), block=(128,1,1), shared=numpy.zeros((1,1),dtype=real_py).nbytes*BLOCK_SIZE)
+            reduce_dynamic(d_x, d_y, numpy.int32(N), 
+                grid=((N-1)//128+1, 1), 
+                block=(128,1,1), 
+                shared=size_real*BLOCK_SIZE
+                )
         else:
             print("Error: wrong method")
             break

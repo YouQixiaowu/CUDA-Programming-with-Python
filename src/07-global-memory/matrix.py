@@ -77,13 +77,25 @@ def timing(d_A, d_B, N, task):
         stop = drv.Event()
         start.record()
         if task == 0:
-            copy(d_A, d_B, numpy.int32(N), numpy.int32(TILE_DIM), grid=grid_size, block=block_size)
+            copy(d_A, d_B, numpy.int32(N), numpy.int32(TILE_DIM), 
+                grid=grid_size, 
+                block=block_size
+                )
         elif task == 1:
-            transpose1(d_A, d_B, numpy.int32(N), grid=grid_size, block=block_size)
+            transpose1(d_A, d_B, numpy.int32(N), 
+                grid=grid_size, 
+                block=block_size
+                )
         elif task == 2:
-            transpose2(d_A, d_B, numpy.int32(N), grid=grid_size, block=block_size)
+            transpose2(d_A, d_B, numpy.int32(N), 
+                grid=grid_size, 
+                block=block_size
+                )
         elif task == 3:
-            transpose3(d_A, d_B, numpy.int32(N), grid=grid_size, block=block_size)
+            transpose3(d_A, d_B, numpy.int32(N), 
+                grid=grid_size, 
+                block=block_size
+                )
         else:
             print("Error: wrong task")
             return

@@ -74,14 +74,16 @@ def timing(d_NN, d_NL, d_x, d_y, N, MN, atomic):
         start.record()
         if atomic:
             find_neighbor_atomic(d_NN, d_NL, d_x, d_y, numpy.int32(N),
-            numpy.int32(MN), numpy.__dict__[real_py](cutoff_square),
-            grid=((N-1)//128+1, 1), 
-            block=(128,1,1))
+                numpy.int32(MN), numpy.__dict__[real_py](cutoff_square),
+                grid=((N-1)//128+1, 1), 
+                block=(128,1,1)
+                )
         else:
             find_neighbor_no_atomic(d_NN, d_NL, d_x, d_y, numpy.int32(N),
-            numpy.__dict__[real_py](cutoff_square),
-            grid=((N-1)//128+1, 1), 
-            block=(128,1,1))
+                numpy.__dict__[real_py](cutoff_square),
+                grid=((N-1)//128+1, 1), 
+                block=(128,1,1)
+                )
         stop.record()
         stop.synchronize()
         elapsed_time = start.time_till(stop)

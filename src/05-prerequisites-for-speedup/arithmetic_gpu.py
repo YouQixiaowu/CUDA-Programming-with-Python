@@ -47,7 +47,10 @@ for repeat in range(NUM_REPEATS+1):
     stop = drv.Event()
     start.record()
 
-    arithmetic(d_x, x0, numpy.int32(N), grid=((N-1)//128+1, 1), block=(128,1,1))
+    arithmetic(d_x, x0, numpy.int32(N), 
+        grid=((N-1)//128+1, 1), 
+        block=(128,1,1)
+        )
     
     stop.record()
     stop.synchronize()
