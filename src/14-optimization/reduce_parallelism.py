@@ -69,7 +69,9 @@ grid_size = (N + BLOCK_SIZE - 1) // BLOCK_SIZE
 grid_size = (grid_size + NUM_ROUNDS - 1) // NUM_ROUNDS
 size_real = numpy.dtype(real_py).itemsize
 
-d_y = drv.mem_alloc(size_real*grid_size)
+ymem = size_real * grid_size
+smem = size_real * BLOCK_SIZE
+d_y = drv.mem_alloc(ymem)
 
 t_sum = 0
 t2_sum = 0
@@ -83,7 +85,7 @@ for repeat in range(NUM_REPEATS+1):
         grid=(grid_size,1),
         shared=size_real*BLOCK_SIZE)
 
-    reduce_cp(d_x, d_y, numpy.int32(N), 
+    reduce_cp(d_y, d_y, numpy.int32(grid_size), 
         block=(1024,1,1), 
         grid=(1,1),
         shared=size_real*1024)
