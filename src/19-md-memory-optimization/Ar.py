@@ -14,7 +14,7 @@ unitcell = {
         ['Ar', 40, [0.5, 0.5, 0.0]],
         ],
     }
-Ar = material.Material(unitcell, [22,22,22])
+Ar = material.Material(unitcell, [40,40,40])
 
 input_infor = {
     'temperature' : 60,
