@@ -47,9 +47,9 @@ def timing(d_x, d_y, d_z, num):
         for n in range(num):
             offset = n*N1
             add(
-                numpy.int64(int(d_x)+offset), 
-                numpy.int64(int(d_y)+offset), 
-                numpy.int64(int(d_z)+offset), 
+                numpy.uintp(int(d_x)+offset), 
+                numpy.uintp(int(d_y)+offset), 
+                numpy.uintp(int(d_z)+offset), 
                 numpy.int32(N1), 
                 grid=((N1-1)//block_size+1, 1), 
                 block=(128,1,1), 

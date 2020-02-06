@@ -10,13 +10,6 @@ else:
     real_py = 'float32'
     real_cpp = 'float'
 
-if len(sys.argv)==3:
-    N = int(sys.argv[2])
-else:
-    N = 20000
-
-
-
 mod = DynamicSourceModule(r'''
 const int TILE_DIM = 32;
 __global__ void transpose1(const real *A, real *B, const int N)
@@ -106,6 +99,7 @@ def timing(d_A, d_B, N, task):
     t_err = math.sqrt(t2_sum / NUM_REPEATS - t_ave * t_ave)
     print("Time = {:.6f} +- {:.6f} ms.".format(t_ave, t_err))         
 
+N = 20000
 N2 = N**2
 h_A = numpy.arange(0, N2, 1, dtype=real_py)
 h_B = numpy.zeros_like(h_A, dtype=real_py)

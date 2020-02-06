@@ -64,9 +64,9 @@ for c in range(7):
                 stream=streams[i])
 
             add(
-                numpy.uint64(int(d_x)+offset), 
-                numpy.uint64(int(d_y)+offset), 
-                numpy.uint64(int(d_z)+offset), 
+                numpy.uintp(int(d_x)+offset), 
+                numpy.uintp(int(d_y)+offset), 
+                numpy.uintp(int(d_z)+offset), 
                 numpy.int32(N1), 
                 grid=((N1-1)//block_size+1, 1), 
                 block=(128,1,1), 

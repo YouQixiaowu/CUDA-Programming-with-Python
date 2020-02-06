@@ -1,5 +1,4 @@
 import pycuda.gpuarray as gpuarray
-import pycuda.driver as cuda
 import pycuda.autoinit
 import numpy
 
