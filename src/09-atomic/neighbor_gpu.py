@@ -3,7 +3,6 @@ import pycuda.autoinit
 import pycuda.driver as drv
 from pycuda.compiler import DynamicSourceModule
 
-
 if len(sys.argv)>2 and sys.argv[1]=='-double':
     real_py = 'float64' 
     real_cpp = 'double'
