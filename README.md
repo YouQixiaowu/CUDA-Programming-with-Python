@@ -1,5 +1,6 @@
 # CUDA-Programming-for-Python
-这些代码是为樊哲勇老师的书籍<<CUDA-Programming编程>>编写的示例代码。为了让CUDA初学者在python中更好的使用CUDA，本代码库应用了[pycuda](https://mathema.tician.de/software/pycuda/)模块，构建了与书中使用C++编写的功能上一致的例子。
+<<CUDA-Programming编程>>书籍内容将不再包含pycuda的内容，相关的pycuda的文字教程将以博客的形式给出。将在完成时给出链接。
+这些代码原是为樊哲勇老师的书籍<<CUDA-Programming编程>>编写的示例代码。为了让CUDA初学者在python中更好的使用CUDA，本代码库应用了[pycuda](https://mathema.tician.de/software/pycuda/)模块，构建了与书中使用C++编写的功能上一致的例子。
 
 ## 运行环境要求
 1. 适用CUDA的显卡
