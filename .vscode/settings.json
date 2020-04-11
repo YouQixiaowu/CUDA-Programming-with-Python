@@ -1,3 +1,4 @@
 {
+    "python.linting.pylintArgs": ["--generate-members"],
     "python.pythonPath": "C:\\Users\\youqi\\AppData\\Local\\Programs\\Python\\Python37\\python.exe"
 }
