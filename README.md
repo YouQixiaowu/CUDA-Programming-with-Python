@@ -11,4 +11,3 @@
 4. numpy模块  （安装方法:pip install numpy）
 5. pycuda模块 （安装方法:pip install pycuda）
 6. skcuda模块 （安装方法:pip install scikit-cuda）
-7. 注意：尚未在linux进行测试，我不能保证其可用性，（相关测试即将完成）。
